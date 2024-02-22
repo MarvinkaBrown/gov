@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: gov-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+
+  backend:
+    build:
+      context: gov-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:9000"
+    depends_on:
+      - database
+
+  database:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: toursi01
+      MYSQL_DATABASE: gov
+      MYSQL_USER: root
+      MYSQL_PASSWORD: toursi01
+    ports:
+      - "3306:3306"
